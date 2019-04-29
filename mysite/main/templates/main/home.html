@@ -1,0 +1,29 @@
+{% extends "main/base_main.html" %}
+
+
+{% block content %}
+<div class="container">
+<div class='row'><br></div>
+<div class="row">
+    <div class="col">
+    col
+    </div>
+    <div class="col-6">
+        {% for tut in tutorial %}
+            <div class="card mb-3" style="width: auto; ">
+            <div class="card-body">
+                <h5 class="card-title">{{tut.tutorial_title}}</h5>
+                <p class="card-text">{{tut.tutorial_content|safe}}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+    <div class="col">
+    col
+    </div>
+</div>
+
+</div>
+{% endblock content %}
