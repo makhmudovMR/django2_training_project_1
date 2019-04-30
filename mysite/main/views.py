@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, reverse
 from django.views.generic import View
 from django.http import HttpResponse
 from .models import Tutorial
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from .forms import NewUserForm
 
 
 # Create your views here.
@@ -18,7 +19,7 @@ class HomePage(View):
 class RegisterPage(View):
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
@@ -34,7 +35,7 @@ class RegisterPage(View):
 
 
     def get(self, request):
-        form = UserCreationForm
+        form = NewUserForm()
         return render(request, 'main/register.html', context={'form': form})
 
 class LogoutRequest(View):
