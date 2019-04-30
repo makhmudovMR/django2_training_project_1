@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import View
 from django.http import HttpResponse
-from .models import Tutorial
+from .models import Tutorial, TutorialSeries, TutorialCategory
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -12,8 +12,26 @@ from .forms import NewUserForm
 class HomePage(View):
 
     def get(self, request):
-        context = {'tutorial': Tutorial.objects.all()}
-        return render(request, template_name='main/home.html', context=context)
+        context = {'categories': TutorialCategory.objects.all()}
+        return render(request, template_name='main/categories.html', context=context)
+
+
+class TutorialSeriesPage(View):
+
+    def get(self, request, category_slug):
+        cat = TutorialCategory.objects.get(category_slug=category_slug)
+        series = TutorialSeries.objects.filter(tutorial_category=cat)
+        context = {'series': series}
+        return render(request, template_name='main/series.html', context=context)
+
+
+class TutorialPage(View):
+
+    def get(self, request, id):
+        s = TutorialSeries.objects.get(id=id)
+        tutorials = Tutorial.objects.filter(tutorial_series=s)
+        context = {'tutorials': tutorials}
+        return render(request, template_name='main/tutorials.html', context=context)
 
 
 class RegisterPage(View):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tutorial
+from .models import Tutorial, TutorialCategory, TutorialSeries
 from tinymce.widgets import TinyMCE
 from django.db import models
 
@@ -9,7 +9,7 @@ class TutorialAdmin(admin.ModelAdmin):
 
     # Отображение полей секциями
     fieldsets = [
-        ('Title/date', {'fields': ['tutorial_title', 'tutorial_published']}),
+        ('Title/date/slug', {'fields': ['tutorial_title', 'tutorial_published', 'tutorial_slug', 'tutorial_series']}),
         ('Content', {'fields': ['tutorial_content']})
     ]
 
@@ -18,3 +18,5 @@ class TutorialAdmin(admin.ModelAdmin):
     }
 
 admin.site.register(Tutorial, TutorialAdmin)
+admin.site.register(TutorialCategory)
+admin.site.register(TutorialSeries)

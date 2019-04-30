@@ -1,0 +1,29 @@
+{% extends "main/base_main.html" %}
+
+
+{% block content %}
+<div class="container">
+<div class='row'><br></div>
+<div class="row">
+    <div class="col">
+    col
+    </div>
+    <div class="col-6">
+        {% for cat in categories %}
+            <div class="card mb-3" style="width: auto; ">
+            <div class="card-body">
+                <h5 class="card-title">{{cat.tutorial_category}}</h5>
+                <p class="card-text">{{cat.category_summary|safe}}</p>
+                <a href="{% url 'main:tutorial_series' category_slug=cat.category_slug %}" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    <div class="col">
+    col
+    </div>
+</div>
+
+</div>
+{% endblock content %}
